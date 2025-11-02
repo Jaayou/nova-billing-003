@@ -26,7 +26,7 @@ class CalculationServiceImplTest {
     void testCalculate_Wireless() {
         // 1. Arrange
         CalculationParameter param = CalculationParameter.builder()
-                .serviceId("SVC_WL_001") // "WL"
+                .serviceId("SVC_WL_005") // "WL"
                 .isHotbill(false)
                 .build();
 

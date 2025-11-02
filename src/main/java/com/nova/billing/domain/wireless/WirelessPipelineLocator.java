@@ -19,9 +19,9 @@ public class WirelessPipelineLocator {
         System.out.println("    [v0.03 Locator] Finding 'Wireless' pipeline...");
 
         return allPipelines.stream()
-        .filter(pipeline -> pipeline.supports(context))
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException(
-            "Unsupported 'Wireless' pipeline for: " + context.getParam()));
+                .filter(pipeline -> pipeline.supports(context))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Unsupported 'Wireless' pipeline for: " + context.getParam()));
     }
 }

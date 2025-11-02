@@ -35,4 +35,17 @@ public class CalculationParameter {
         }
         throw new IllegalArgumentException("Unsupported Domain: " + this.serviceId);
     }
+
+    public String getProductType() {
+        if (this.serviceId.contains("001") || this.serviceId.contains("003")) {
+            return "WL_STANDARD_PLAN";
+        }
+        if (this.serviceId.contains("005")) {
+            return "WL_LITE_PLAN";
+        }
+        if (this.serviceId.contains("WD")) {
+            return "WD_STANDARD_PLAN";
+        }
+        return "UNKNOWN";
+    }
 }
