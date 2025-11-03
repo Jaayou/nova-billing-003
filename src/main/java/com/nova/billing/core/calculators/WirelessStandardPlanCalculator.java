@@ -25,7 +25,7 @@ public class WirelessStandardPlanCalculator implements BaseFeeCalculator {
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("      [v0.06 Calculator] -> Executing 'WirelessStandardPlanCalculator' (+80,000)");
+        System.out.println("      [Calculator] -> Executing 'WirelessStandardPlanCalculator' (+80,000)");
 
         bill.addCharge("Wireless Base Fee (Standard)", BASE_FEE);
     }

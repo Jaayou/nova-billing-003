@@ -17,7 +17,7 @@ public class ReceivableStep implements CalculationStep {
     public void execute(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("    [v0.05 Step] -> 07. ReceivableStep Executed");
+        System.out.println("\n    [Step] -> 07. ReceivableStep Executed");
 
         bill.addCharge("Receivable Fee", RECEIVABLE_FEE);
     }

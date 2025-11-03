@@ -25,17 +25,17 @@ public class WiredStrategy implements DomainBillingStrategy {
 
     @Override
     public void execute(BillingContext context) {
-        System.out.println("  [v0.04 Strategy] === 'Wired' Domain Strategy Executing ===");
+        System.out.println("  [Strategy] === 'Wired' Domain Strategy Executing ===");
 
         CalculationPipeline pipeline = pipelineLocator.getPipeline(context);
-        System.out.println("    [v0.04 Strategy] -> Found Pipeline: " + pipeline.getClass().getSimpleName());
+        System.out.println("    [Strategy] -> Found Pipeline: " + pipeline.getClass().getSimpleName());
 
         List<CalculationStep> steps = pipeline.getSteps();
 
-        System.out.println("    [v0.04 Strategy] -> Executing " + steps.size() + " Steps in order...");
+        System.out.println("    [Strategy] -> Executing " + steps.size() + " Steps in order...");
         for (CalculationStep step : steps) {
             step.execute(context);
         }
-        System.out.println("    [v0.04 Strategy] === Pipeline Execution Complete ===");
+        System.out.println("    [Strategy] === Pipeline Execution Complete ===");
     }
 }

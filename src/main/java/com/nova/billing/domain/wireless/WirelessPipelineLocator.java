@@ -16,7 +16,7 @@ public class WirelessPipelineLocator {
     private final List<CalculationPipeline> allPipelines;
 
     public CalculationPipeline getPipeline(BillingContext context) {
-        System.out.println("    [v0.03 Locator] Finding 'Wireless' pipeline...");
+        System.out.println("    [Locator] Finding 'Wireless' pipeline...");
 
         return allPipelines.stream()
                 .filter(pipeline -> pipeline.supports(context))

@@ -17,7 +17,7 @@ public class AdjustmentStep implements CalculationStep {
     public void execute(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("    [v0.05 Step] -> 06. AdjustmentStep Executed");
+        System.out.println("\n    [Step] -> 06. AdjustmentStep Executed");
 
         bill.addCharge("Adjustment Fee", ADJUSTMENT_FEE);
     }

@@ -9,6 +9,6 @@ import com.nova.billing.core.CalculationStep;
 public class VatStep implements CalculationStep {
     @Override
     public void execute(BillingContext context) {
-        System.out.println("    [v0.05 Step] -> 05. VatStep Executed");
+        System.out.println("\n    [Step] -> 05. VatStep Executed");
     }
 }

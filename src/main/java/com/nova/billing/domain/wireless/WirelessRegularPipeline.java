@@ -22,13 +22,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WirelessRegularPipeline implements CalculationPipeline {
 
-    private final WirelessBaseFeeStep wirelessBaseFeeStep; // 1. 기본료 (v0.04)
-    private final UsageFeeStep usageFeeStep;               // 2. 통화료
-    private final OneTimeFeeStep oneTimeFeeStep;           // 3. 일회성요금
-    private final DiscountStep discountStep;               // 4. 할인
-    private final VatStep vatStep;                         // 5. 부가세
-    private final AdjustmentStep adjustmentStep;           // 6. 조정
-    private final ReceivableStep receivableStep;           // 7. 반제
+    private final WirelessBaseFeeStep wirelessBaseFeeStep;
+    private final UsageFeeStep usageFeeStep;              
+    private final OneTimeFeeStep oneTimeFeeStep;          
+    private final DiscountStep discountStep;              
+    private final VatStep vatStep;                        
+    private final AdjustmentStep adjustmentStep;          
+    private final ReceivableStep receivableStep;          
 
     @Override
     public boolean supports(BillingContext context) {

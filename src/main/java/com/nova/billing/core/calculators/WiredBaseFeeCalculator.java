@@ -10,23 +10,20 @@ import com.nova.billing.domain.CalculationParameter;
 import com.nova.billing.domain.DomainType;
 
 @Component
-public class WirelessLitePlanCalculator implements BaseFeeCalculator {
-
-    private static final BigDecimal BASE_FEE = new BigDecimal("55000");
+public class WiredBaseFeeCalculator implements BaseFeeCalculator{
+    private static final BigDecimal BASE_FEE = new BigDecimal("45000");
 
     @Override
     public boolean supports(BillingContext context) {
         CalculationParameter param = context.getParam();
-        return param.getDomainType() == DomainType.WIRELESS &&
-                param.getProductType().equals("WL_LITE_PLAN");
+        return param.getDomainType() == DomainType.WIRED &&
+                param.getProductType().equals("WD_STANDARD_PLAN");
     }
 
     @Override
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
-
-        System.out.println("      [Calculator] -> Executing 'WirelessLitePlanCalculator' (+55,000)");
-
-        bill.addCharge("Wireless Base Fee (Lite)", BASE_FEE);
+        System.out.println("      [Calculator] -> Executing 'WiredStandardPlanCalculator' (+45,000)");
+        bill.addCharge("Wired Base Fee", BASE_FEE);
     }
 }

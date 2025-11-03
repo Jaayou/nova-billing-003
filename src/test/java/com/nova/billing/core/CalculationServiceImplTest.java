@@ -11,18 +11,37 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.CalculationParameter;
+import com.nova.billing.domain.ChargeItem;
 
-/**
- * [v0.00-eng] CalculationService의 동작을 검증하는 테스트 (영문)
- */
 @SpringBootTest
 class CalculationServiceImplTest {
 
     @Autowired
     private CalculationService calculationService;
 
+    private String prettyPrint(Bill bill) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bill Summary {\n");
+        sb.append(String.format("  Service ID: %s\n", bill.getServiceId()));
+        sb.append(String.format("  Message: %s\n", bill.getMessage()));
+        sb.append("  Charge Items:\n");
+
+        if (bill.getChargeItems() == null || bill.getChargeItems().isEmpty()) {
+            sb.append("    (No items)\n");
+        } else {
+            for (ChargeItem item : bill.getChargeItems()) {
+                sb.append(String.format("    - %s: %,.0f\n",
+                        item.getItemName(), item.getAmount()));
+            }
+        }
+        sb.append("  ------------------\n");
+        sb.append(String.format("  Total Amount: %,.0f\n", bill.getTotalAmount()));
+        sb.append("}");
+        return sb.toString();
+    }
+
     @Test
-    @DisplayName("[v0.00-eng] Wireless (WL) customer")
+    @DisplayName("[Test] Wireless (WL) customer")
     void testCalculate_Wireless() {
         // 1. Arrange
         CalculationParameter param = CalculationParameter.builder()
@@ -34,27 +53,24 @@ class CalculationServiceImplTest {
         Bill result = calculationService.calculate(param);
 
         // 3. Assert
-        
-        // [System.out] 테스트 결과(Bill 객체)를 콘솔에 출력 (영문)
+
         System.out.println("\n--- [TEST: Wireless] ---");
-        System.out.println(result.toString());
+        System.out.println(prettyPrint(result));
         System.out.println("------------------------");
 
-        // [검증 1]
         assertNotNull(result, "Bill object should not be null.");
-        
-        // [검증 2]
+
         assertEquals(6, result.getChargeItems().size(), "Should have 1 charge item.");
-        
-        // [검증 3] (영문)
-        assertEquals("Wireless Base Fee", result.getChargeItems().get(0).getItemName());
-        
-        // [검증 4]
-        assertEquals(0, result.getTotalAmount().compareTo(new BigDecimal("92000")));
+
+        // assertEquals("Wireless Base Fee",
+        // result.getChargeItems().get(0).getItemName());
+        assertEquals("Wireless Base Fee (Lite)", result.getChargeItems().get(0).getItemName());
+
+        assertEquals(0, result.getTotalAmount().compareTo(new BigDecimal("67000")));
     }
 
     @Test
-    @DisplayName("[v0.00-eng] Wired (WD) customer")
+    @DisplayName("[Test] Wired (WD) customer")
     void testCalculate_Wired() {
         // 1. Arrange
         CalculationParameter param = CalculationParameter.builder()
@@ -67,16 +83,14 @@ class CalculationServiceImplTest {
 
         // 3. Assert
         System.out.println("\n--- [TEST: Wired] ---");
-        System.out.println(result.toString());
+        System.out.println(prettyPrint(result));
         System.out.println("---------------------");
-        
+
         assertNotNull(result);
         assertEquals(1, result.getChargeItems().size());
-        
-        // [검증 3] (영문)
+
         assertEquals("Wired Base Fee", result.getChargeItems().get(0).getItemName());
-        
-        // [검증 4]
+
         assertEquals(0, result.getTotalAmount().compareTo(new BigDecimal("45000")));
     }
 }

@@ -1,4 +1,4 @@
-package com.nova.billing.core.calculators;
+package com.nova.billing.core.calculators.discount;
 
 import java.math.BigDecimal;
 
@@ -10,23 +10,19 @@ import com.nova.billing.domain.CalculationParameter;
 import com.nova.billing.domain.DomainType;
 
 @Component
-public class WirelessLitePlanCalculator implements BaseFeeCalculator {
-
-    private static final BigDecimal BASE_FEE = new BigDecimal("55000");
+public class ContractDiscountCalculator implements DiscountCalculator {
+    private static final BigDecimal DISCOUNT_AMOUNT = new BigDecimal("-10000");
 
     @Override
     public boolean supports(BillingContext context) {
         CalculationParameter param = context.getParam();
-        return param.getDomainType() == DomainType.WIRELESS &&
-                param.getProductType().equals("WL_LITE_PLAN");
+        return param.getDomainType() == DomainType.WIRELESS;
     }
 
     @Override
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
-
-        System.out.println("      [Calculator] -> Executing 'WirelessLitePlanCalculator' (+55,000)");
-
-        bill.addCharge("Wireless Base Fee (Lite)", BASE_FEE);
+        System.out.println("      [Calculator] -> Executing 'ContractDiscountCalculator' (-10,000)");
+        bill.addCharge("Wireless Contract Discount", DISCOUNT_AMOUNT);
     }
 }

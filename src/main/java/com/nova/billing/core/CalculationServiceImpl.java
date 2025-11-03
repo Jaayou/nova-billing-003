@@ -8,16 +8,14 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.nova.billing.domain.Bill;
+import com.nova.billing.domain.BillingSubject;
 import com.nova.billing.domain.CalculationParameter;
 import com.nova.billing.domain.DomainType;
+import com.nova.billing.domain.SubContract;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
-/**
- * [v0.00-eng] CalculationService의 임시 구현체 ('구현')
- * - 하드코딩된 'if-else' 기본료 로직 (영문 로그)
- */
 @Service
 @RequiredArgsConstructor
 public class CalculationServiceImpl implements CalculationService {
@@ -28,7 +26,11 @@ public class CalculationServiceImpl implements CalculationService {
 
     @PostConstruct
     public void initializeStrategyMap() {
-        System.out.println("\n[v0.03 ServiceImpl] Initializing Strategy Map...");
+        System.out.println("\n=======================================================");
+        System.out.println("  NOVA Billing Engine Initializing... [Version v0.12]");
+        System.out.println("  (Arch: Strategy-Pipeline-Step-Calculator)");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("[ServiceImpl] Initializing Strategy Map...");
 
         for (DomainBillingStrategy strategy : allDomainStrategies) {
             if (strategyMap.containsKey(strategy.getDomainType())) {
@@ -36,24 +38,27 @@ public class CalculationServiceImpl implements CalculationService {
             }
             strategyMap.put(strategy.getDomainType(), strategy);
 
-            System.out.println("[v0.03 ServiceImpl] Strategy Map initialized. Total strategies: " + strategyMap.size());
+            System.out.println("  [ServiceImpl] Strategy Map initialized. Total strategies: " + strategyMap.size());
         }
+
+        System.out.println("[ServiceImpl] Strategy Map initialized. Total strategies: " + strategyMap.size());
+        System.out.println("=======================================================\n");
     }
 
     @Override
     public Bill calculate(CalculationParameter param) {
 
-        // [System.out] 1. 서비스 시작 확인 (영문)
-        System.out.println("\n[v0.03 ServiceImpl] === Calculation Start: " + param.getServiceId() + " ===");
+        System.out.println("\n[ServiceImpl] === Calculation Start: " + param.getServiceId() + " ===");
 
-        // 1. '빈 Bill' 객체 생성
         Bill bill = Bill.builder()
                 .serviceId(param.getServiceId())
                 .message("Calculation processing...")
                 .build();
 
-        BillingContext context = new BillingContext(param, bill);
-        System.out.println("  [v0.03 ServiceImpl] -> BillingContext Created.");
+        BillingSubject subject = buildBillingSubject(param);
+
+        BillingContext context = new BillingContext(param, subject, bill);
+        System.out.println("  [ServiceImpl] -> BillingContext Created.");
 
         // 2. [v0.01]
         try {
@@ -61,20 +66,42 @@ public class CalculationServiceImpl implements CalculationService {
             DomainBillingStrategy strategy = Optional.ofNullable(strategyMap.get(domain))
                     .orElseThrow(() -> new IllegalArgumentException("Unsupported Domain: " + domain));
 
-            System.out.println("  [v0.03 ServiceImpl] -> Found Manager: " + strategy.getClass().getSimpleName());
+            System.out.println("  [ServiceImpl] -> Found Manager: " + strategy.getClass().getSimpleName());
 
             strategy.execute(context);
             bill.setMessage("Calculation Complete");
         } catch (Exception e) {
-            System.err.println("  [v0.03 ServiceImpl] -> ERROR: " + e.getMessage());
+            System.err.println("  [ServiceImpl] -> ERROR: " + e.getMessage());
             context.getBill().setMessage("Calculation Failed: " + e.getMessage());
         }
 
-        // [System.out] 3. 최종 결과 확인
-        System.out.println("  [v0.03 ServiceImpl] === Calculation Complete ===");
-        System.out.println("  [v0.03 ServiceImpl] Final Bill Object: " + context.getBill().toString());
-        System.out.println("  [v0.03 ServiceImpl] Final TotalAmount: " + context.getBill().getTotalAmount());
+        System.out.println("  [ServiceImpl] === Calculation Complete ===");
+        System.out.println("  [ServiceImpl] Final Bill Object: " + context.getBill().toString());
+        System.out.println("  [ServiceImpl] Final TotalAmount: " + context.getBill().getTotalAmount());
 
         return context.getBill();
+    }
+
+    private BillingSubject buildBillingSubject(CalculationParameter param) {
+
+        List<SubContract> subContracts;
+
+        if (param.getServiceId().equals("SVC_WL_001")) {
+            subContracts = List.of(
+                    SubContract.builder().subContractId("WL_sub_1").productType("WL_STANDARD_PLAN").build(),
+                    SubContract.builder().subContractId("WL_sub_2").productType("WL_LITE_PLAN").build());
+        } else if (param.getServiceId().equals("SVC_WD_002")) {
+            subContracts = List.of(
+                    SubContract.builder().subContractId("WD_sub_2").productType("WD_STANDARD_PLAN").build());
+        } else {
+            subContracts = List.of(
+                    SubContract.builder().subContractId(param.getServiceId() + "_sub")
+                            .productType(param.getProductType())
+                            .build());
+        }
+
+        return BillingSubject.builder()
+                .subContracts(subContracts)
+                .build();
     }
 }

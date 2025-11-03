@@ -17,7 +17,7 @@ public class WiredPipelineLocator {
 
     public CalculationPipeline getPipeline(BillingContext context) {
 
-        System.out.println("    [v0.04 Locator] Finding 'Wired' pipeline...");
+        System.out.println("    [Locator] Finding 'Wired' pipeline...");
 
         return allPipelines.stream()
                 .filter(pipeline -> pipeline.supports(context))
