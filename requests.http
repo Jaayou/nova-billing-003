@@ -1,7 +1,6 @@
-### [v0.03] Hotbill API 테스트 - 무선 (WL)
-# (호출) POST /api/v1/hotbill
-# (파라미터) isHotbill=true, serviceId="SVC_WL_001"
-# (예상) v0.02 엔진이 'WirelessStrategy'를 찾아 80,000원을 반환
+### Hotbill API (WL)
+# POST /api/v1/hotbill
+# (Parameter) isHotbill=true, serviceId="SVC_WL_001"
 POST http://localhost:8080/api/v1/hotbill
 Content-Type: application/json
 
@@ -10,10 +9,9 @@ Content-Type: application/json
 }
 
 
-### [vD.03] Hotbill API 테스트 - 유선 (WD)
-# (호출) POST /api/v1/hotbill
-# (파라미터) isHotbill=true, serviceId="SVC_WD_002"
-# (예상) v0.02 엔진이 'WiredStrategy'를 찾아 45,000원을 반환
+### Hotbill API (WD)
+# POST /api/v1/hotbill
+# (Parameter) isHotbill=true, serviceId="SVC_WD_002"
 POST http://localhost:8080/api/v1/hotbill
 Content-Type: application/json
 

@@ -20,18 +20,18 @@ public class HotbillController {
 
     @PostMapping("/hotbill")
     public Bill calculateHotbill(@RequestBody HotbillRequest request) {
-        System.out.println("\n[v0.03 Controller] === Hotbill Request Received: " + request.getServiceId() + " ===");
+        System.out.println("\n[Controller] === Hotbill Request Received: " + request.getServiceId() + " ===");
 
         CalculationParameter param = CalculationParameter.builder()
                 .serviceId(request.getServiceId())
                 .isHotbill(true)
                 .build();
 
-        System.out.println("  [v0.03 Controller] -> Calling CalculationService (v0.02 Engine)...");
+        System.out.println("  [Controller] -> Calling CalculationService...");
 
         Bill billResult = calculationService.calculate(param);
 
-        System.out.println("  [v0.03 Controller] === Returning Bill Response ===");
+        System.out.println("  [Controller] === Returning Bill Response ===");
 
         return billResult;
     }
