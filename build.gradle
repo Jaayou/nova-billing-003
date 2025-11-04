@@ -31,35 +31,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+    runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.batch:spring-batch-test'
 }
 
 tasks.named('test') {
-	useJUnitPlatform() // 1. JUnit 5 사용
-	
-	/**
-     * [한글 깨짐 해결]
-     * 테스트를 실행하는 JVM의 기본 인코딩을
-     * 'UTF-8'이 아닌 'MS949'(Windows 기본값)로 강제하여
-     * PowerShell 터미널에서 깨지지 않도록 합니다.
-     */
-    jvmArgs = ["-Dfile.encoding=EUC-KR"]
-	systemProperty "file.encoding", "EUC-KR"
-
-	/**
-     * [로그 안보임 해결]
-     * Gradle이 테스트 실행 시 System.out, System.err 로그를
-     * 콘솔에 출력하도록 강제합니다.
-     */
-    testLogging {
-        events "passed", "skipped", "failed" // 테스트 결과(통과/실패)를 로깅
-        showStandardStreams = true           // [핵심] 표준 출력을 보여줌
-        exceptionFormat = 'full'             // 예외 발생 시 전체 스택 트레이스 출력
-    }	
-}
-
-/**
- * [v0.00 한글 깨짐 방지] Java 소스 파일 컴파일 시 UTF-8 사용
- */
-tasks.withType(JavaCompile) {
-    options.encoding = 'EUC-KR'
+	useJUnitPlatform()
 }

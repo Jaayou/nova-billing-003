@@ -27,7 +27,7 @@ public class CalculationServiceImpl implements CalculationService {
     @PostConstruct
     public void initializeStrategyMap() {
         System.out.println("\n=======================================================");
-        System.out.println("  NOVA Billing Engine Initializing... [Version v0.12]");
+        System.out.println("  NOVA Billing Engine Initializing... [Version v0.13a]");
         System.out.println("  (Arch: Strategy-Pipeline-Step-Calculator)");
         System.out.println("-------------------------------------------------------");
         System.out.println("[ServiceImpl] Initializing Strategy Map...");
