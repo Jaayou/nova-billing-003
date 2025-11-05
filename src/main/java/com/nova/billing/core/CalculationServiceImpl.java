@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.nova.billing.core.preparation.DataPreparer;
+import com.nova.billing.core.preparation.DataPreparerFactory;
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.BillingSubject;
 import com.nova.billing.domain.CalculationParameter;
@@ -20,14 +22,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CalculationServiceImpl implements CalculationService {
 
+    private final DataPreparerFactory dataPreparerFactory;
     private final List<DomainBillingStrategy> allDomainStrategies;
-
     private final Map<DomainType, DomainBillingStrategy> strategyMap = new EnumMap<>(DomainType.class);
 
     @PostConstruct
     public void initializeStrategyMap() {
         System.out.println("\n=======================================================");
-        System.out.println("  NOVA Billing Engine Initializing... [Version v0.13a]");
+        System.out.println("  NOVA Billing Engine Initializing... [Version v0.14]");
         System.out.println("  (Arch: Strategy-Pipeline-Step-Calculator)");
         System.out.println("-------------------------------------------------------");
         System.out.println("[ServiceImpl] Initializing Strategy Map...");
@@ -39,6 +41,7 @@ public class CalculationServiceImpl implements CalculationService {
             strategyMap.put(strategy.getDomainType(), strategy);
 
             System.out.println("  [ServiceImpl] Strategy Map initialized. Total strategies: " + strategyMap.size());
+            System.out.println("    [domain, strategy] " + strategy.getDomainType() + ", " + strategy.getClass().getSimpleName());
         }
 
         System.out.println("[ServiceImpl] Strategy Map initialized. Total strategies: " + strategyMap.size());
@@ -55,16 +58,17 @@ public class CalculationServiceImpl implements CalculationService {
                 .message("Calculation processing...")
                 .build();
 
-        BillingSubject subject = buildBillingSubject(param);
-
-        BillingContext context = new BillingContext(param, subject, bill);
-        System.out.println("  [ServiceImpl] -> BillingContext Created.");
-
-        // 2. [v0.01]
         try {
-            DomainType domain = context.getParam().getDomainType();
+            System.out.println("  [ServiceImpl] -> (1) Calling DataPreparerFactory...");
+
+            DomainType domain = param.getDomainType();
+            DataPreparer preparer = dataPreparerFactory.findDataPreparer(domain);
+            BillingSubject subject = preparer.prepareData(param);
+            BillingContext context = new BillingContext(param, subject, bill);
+            System.out.println("  [ServiceImpl] -> (3) BillingContext (Flat) Created.");
+
             DomainBillingStrategy strategy = Optional.ofNullable(strategyMap.get(domain))
-                    .orElseThrow(() -> new IllegalArgumentException("Unsupported Domain: " + domain));
+                    .orElseThrow(() -> new IllegalArgumentException("Unsupported Domain for strategy: " + domain));
 
             System.out.println("  [ServiceImpl] -> Found Manager: " + strategy.getClass().getSimpleName());
 
@@ -72,36 +76,13 @@ public class CalculationServiceImpl implements CalculationService {
             bill.setMessage("Calculation Complete");
         } catch (Exception e) {
             System.err.println("  [ServiceImpl] -> ERROR: " + e.getMessage());
-            context.getBill().setMessage("Calculation Failed: " + e.getMessage());
+            bill.setMessage("Calculation Failed: " + e.getMessage());
         }
 
         System.out.println("  [ServiceImpl] === Calculation Complete ===");
-        System.out.println("  [ServiceImpl] Final Bill Object: " + context.getBill().toString());
-        System.out.println("  [ServiceImpl] Final TotalAmount: " + context.getBill().getTotalAmount());
+        System.out.println("  [ServiceImpl] Final Bill Object: " + bill.toString());
+        System.out.println("  [ServiceImpl] Final TotalAmount: " + bill.getTotalAmount());
 
-        return context.getBill();
-    }
-
-    private BillingSubject buildBillingSubject(CalculationParameter param) {
-
-        List<SubContract> subContracts;
-
-        if (param.getServiceId().equals("SVC_WL_001")) {
-            subContracts = List.of(
-                    SubContract.builder().subContractId("WL_sub_1").productType("WL_STANDARD_PLAN").build(),
-                    SubContract.builder().subContractId("WL_sub_2").productType("WL_LITE_PLAN").build());
-        } else if (param.getServiceId().equals("SVC_WD_002")) {
-            subContracts = List.of(
-                    SubContract.builder().subContractId("WD_sub_2").productType("WD_STANDARD_PLAN").build());
-        } else {
-            subContracts = List.of(
-                    SubContract.builder().subContractId(param.getServiceId() + "_sub")
-                            .productType(param.getProductType())
-                            .build());
-        }
-
-        return BillingSubject.builder()
-                .subContracts(subContracts)
-                .build();
+        return bill;
     }
 }

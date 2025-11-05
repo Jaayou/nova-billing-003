@@ -45,7 +45,7 @@ public class WirelessBaseFeeStep implements CalculationStep {
                     + subContract.getSubContractId() + " (" + subContract.getProductType() + ")");
 
             BillingContext subContext = createSubContextForHack(context, subContract);
-
+System.out.println("svc,domain,prod"  + subContext.getParam().getServiceId() + "," + subContext.getParam().getDomainType() + "," + subContext.getParam().getProductType());
             List<BaseFeeCalculator> matchingCalculators = allCalculators.stream()
                     .filter(c -> c.supports(subContext))
                     .collect(Collectors.toList());

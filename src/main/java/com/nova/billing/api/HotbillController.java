@@ -24,7 +24,7 @@ public class HotbillController {
 
         CalculationParameter param = CalculationParameter.builder()
                 .serviceId(request.getServiceId())
-                .isHotbill(true)
+                .isHotbill(false)
                 .build();
 
         System.out.println("  [Controller] -> Calling CalculationService...");
