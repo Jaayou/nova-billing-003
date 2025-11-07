@@ -1,6 +1,5 @@
 package com.nova.billing.core.steps;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.nova.billing.core.BillingContext;
 import com.nova.billing.core.CalculationStep;
 import com.nova.billing.core.calculators.discount.DiscountCalculator;
-import com.nova.billing.domain.Bill;
 
 import lombok.RequiredArgsConstructor;
 

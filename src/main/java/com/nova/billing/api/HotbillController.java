@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nova.billing.core.CalculationService;
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.CalculationParameter;
-import com.nova.billing.domain.DomainType;
 
 import lombok.RequiredArgsConstructor;
 

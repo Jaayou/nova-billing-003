@@ -2,7 +2,6 @@ package com.nova.billing.batch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.springframework.context.ApplicationContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
