@@ -10,7 +10,7 @@ import com.nova.billing.domain.CalculationParameter;
 import com.nova.billing.domain.DomainType;
 
 @Component
-public class WiredBaseFeeCalculator implements BaseFeeCalculator{
+public class WiredBaseFeeCalculator implements BaseFeeCalculator {
     private static final BigDecimal BASE_FEE = new BigDecimal("45000");
 
     @Override
