@@ -26,10 +26,10 @@ public class WirelessBaseFeeStep implements CalculationStep {
     public void execute(BillingContext context) {
 
         if (context.getParam().getDomainType() != DomainType.WIRELESS) {
-            return; 
+            return;
         }
 
-        System.out.println("\n    [Step] -> 01. Executing 'WirelessBaseFeeStep' (Engine)...");
+        System.out.println("    [Step] -> 01. Executing 'WirelessBaseFeeStep' (Engine)...");
 
         // BaseFeeCalculator calculator = calculators.stream()
         // .filter(c -> c.supports(context))
@@ -45,7 +45,8 @@ public class WirelessBaseFeeStep implements CalculationStep {
                     + subContract.getSubContractId() + " (" + subContract.getProductType() + ")");
 
             BillingContext subContext = createSubContextForHack(context, subContract);
-System.out.println("svc,domain,prod"  + subContext.getParam().getServiceId() + "," + subContext.getParam().getDomainType() + "," + subContext.getParam().getProductType());
+            System.out.println("        > svc,domain,prod: " + subContext.getParam().getServiceId() + ","
+                    + subContext.getParam().getDomainType() + "," + subContext.getParam().getProductType());
             List<BaseFeeCalculator> matchingCalculators = allCalculators.stream()
                     .filter(c -> c.supports(subContext))
                     .collect(Collectors.toList());
@@ -54,7 +55,8 @@ System.out.println("svc,domain,prod"  + subContext.getParam().getServiceId() + "
                 System.out.println("        [Engine] -> No matching 'Wireless' BaseFeeCalculator found.");
             } else {
                 for (BaseFeeCalculator calculator : matchingCalculators) {
-                    System.out.println("        [Engine] -> Found Calculator: " + calculator.getClass().getSimpleName());
+                    System.out
+                            .println("        [Engine] -> Found Calculator: " + calculator.getClass().getSimpleName());
                     calculator.apply(context);
                 }
             }
@@ -63,9 +65,10 @@ System.out.println("svc,domain,prod"  + subContext.getParam().getServiceId() + "
 
     private BillingContext createSubContextForHack(BillingContext mainContext, SubContract subContract) {
         CalculationParameter subParam = CalculationParameter.builder()
-        .serviceId(subContract.getSubContractId())
-        .isHotbill(mainContext.getParam().isHotbill())
-        .build();
+                .serviceId(subContract.getSubContractId())
+                .domainType(mainContext.getParam().getDomainType())
+                .isHotbill(mainContext.getParam().isHotbill())
+                .build();
 
         return new BillingContext(subParam, null, null);
     }

@@ -18,6 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.nova.billing.core.CalculationService;
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.CalculationParameter;
+import com.nova.billing.domain.DomainType;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,9 +55,29 @@ public class RegularBillingJobConfig {
         System.out.println("\n[Batch Reader] Creating mock data list...");
 
         List<CalculationParameter> targetList = List.of(
-                CalculationParameter.builder().serviceId("SVC_WL_001").isHotbill(false).build(),
-                CalculationParameter.builder().serviceId("SVC_WD_002").isHotbill(false).build(),
-                CalculationParameter.builder().serviceId("SVC_WL_005").isHotbill(false).build());
+                CalculationParameter.builder()
+                        .serviceId("SVC_WL_001")
+                        .domainType(DomainType.WIRELESS)
+                        .operationType("REGULAR")
+                        .isHotbill(false)
+                        .build(),
+                CalculationParameter.builder()
+                        .serviceId("SVC_WD_002")
+                        .domainType(DomainType.WIRED)
+                        .isHotbill(false)
+                        .build(),
+                CalculationParameter.builder()
+                        .serviceId("SVC_WL_005")
+                        .domainType(DomainType.WIRELESS)
+                        .operationType("REGULAR")
+                        .isHotbill(false)
+                        .build(),
+                CalculationParameter.builder()
+                        .serviceId("SVC_BS_006")
+                        .domainType(DomainType.WIRELESS)
+                        .operationType("BILL_SHOCK")
+                        .isHotbill(false)
+                        .build());
 
         return new ListItemReader<>(targetList);
     }
@@ -78,7 +99,7 @@ public class RegularBillingJobConfig {
             System.out.println("  [Batch Writer] Writing " + chunk.getItems().size() + " Bills (Transaction Commit)");
 
             for (Bill bill : chunk.getItems()) {
-                System.out.println("    [v0.13 Batch Writer] -> Rep ID: " + bill.getServiceId()
+                System.out.println("    [Batch Writer] -> Rep ID: " + bill.getServiceId()
                         + ", Final Amount: " + bill.getTotalAmount());
             }
         };

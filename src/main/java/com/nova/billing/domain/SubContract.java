@@ -8,6 +8,7 @@ import lombok.Data;
 public class SubContract {
 
     private String subContractId;
+    private DomainType domainType;
     private String productType;
     
 }

@@ -17,7 +17,7 @@ public class UsageFeeStep implements CalculationStep {
     public void execute(BillingContext context) {
         Bill bill = context.getBill();    
 
-        System.out.println("\n    [Step] -> 02. UsageFeeStep Executed");
+        System.out.println("    [Step] -> 02. UsageFeeStep Executed");
 
         bill.addCharge("Usage Fee", USAGE_FEE);
     }

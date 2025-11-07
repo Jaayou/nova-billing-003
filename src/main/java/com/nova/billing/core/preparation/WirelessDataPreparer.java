@@ -25,16 +25,24 @@ public class WirelessDataPreparer implements DataPreparer {
 
         if (param.getServiceId().equals("SVC_WL_001")) {
             subContracts = List.of(
-                    SubContract.builder().subContractId("WL_sub_001").productType("WL_STANDARD_PLAN").build(),
-                    SubContract.builder().subContractId("WL_sub_002").productType("WL_LITE_PLAN").build());
+                    SubContract.builder()
+                            .subContractId("WL_sub_001")
+                            .productType("WL_STANDARD_PLAN")
+                            .build(),
+                    SubContract.builder()
+                            .subContractId("WL_sub_002")
+                            .productType("WL_LITE_PLAN")
+                            .build());
         } else if (param.getServiceId().equals("SVC_WL_005")) {
             subContracts = List.of(
-                    SubContract.builder().subContractId(param.getServiceId() + "_sub")
+                    SubContract.builder()
+                            .subContractId(param.getServiceId() + "_sub")
                             .productType(param.getProductType())
                             .build());
         } else {
             subContracts = List.of(
-                    SubContract.builder().subContractId(param.getServiceId() + "_sub")
+                    SubContract.builder()
+                            .subContractId(param.getServiceId() + "_sub")
                             .productType(param.getProductType())
                             .build());
         }

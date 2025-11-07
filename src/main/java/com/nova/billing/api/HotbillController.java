@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nova.billing.core.CalculationService;
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.CalculationParameter;
+import com.nova.billing.domain.DomainType;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +24,16 @@ public class HotbillController {
         System.out.println("\n[Controller] === Hotbill Request Received: " + request.getServiceId() + " ===");
 
         CalculationParameter param = CalculationParameter.builder()
+                .callerId(request.getCallerId())
                 .serviceId(request.getServiceId())
-                .isHotbill(false)
+                .domainType(request.getDomainType())
+                .operationType(request.getOperationType())
+                .isHotbill(request.isHotbill())
+                .calculationStartDate(request.getCalculationStartDate())
+                .calculationEndDate(request.getCalculationEndDate())
+                .invoiceDate(request.getInvoiceDate())
                 .build();
-
+    
         System.out.println("  [Controller] -> Calling CalculationService...");
 
         Bill billResult = calculationService.calculate(param);

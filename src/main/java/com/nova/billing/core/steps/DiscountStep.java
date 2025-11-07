@@ -21,7 +21,7 @@ public class DiscountStep implements CalculationStep {
 
     @Override
     public void execute(BillingContext context) {
-        System.out.println("\n    [Step] -> 04. Executing 'DiscountStep' (Engine)...");
+        System.out.println("    [Step] -> 04. Executing 'DiscountStep' (Engine)...");
 
         List<DiscountCalculator> matchingCalculators = allDisCountCalculators.stream()
                 .filter(calculator -> calculator.supports(context))

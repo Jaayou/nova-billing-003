@@ -9,16 +9,16 @@ import com.nova.billing.core.CalculationStep;
 import com.nova.billing.domain.Bill;
 
 @Component
-public class AdjustmentStep implements CalculationStep {
+public class AutoPayDiscountStep implements CalculationStep {
 
-    private static final BigDecimal ADJUSTMENT_FEE = new BigDecimal("-5000");
+    private static final BigDecimal AUTOPAY_DISCOUNT = new BigDecimal("-600");
 
     @Override
     public void execute(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("    [Step] -> 09. AdjustmentStep Executed");
+        System.out.println("    [Step] -> 07. AutoPayDiscountFeeStep Executed");
 
-        bill.addCharge("Adjustment Fee", ADJUSTMENT_FEE);
+        bill.addCharge("Late Fee", AUTOPAY_DISCOUNT);
     }
 }

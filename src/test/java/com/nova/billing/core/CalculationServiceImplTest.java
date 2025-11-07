@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.nova.billing.domain.Bill;
 import com.nova.billing.domain.CalculationParameter;
 import com.nova.billing.domain.ChargeItem;
+import com.nova.billing.domain.DomainType;
 
 @SpringBootTest
 class CalculationServiceImplTest {
@@ -46,6 +47,7 @@ class CalculationServiceImplTest {
         // 1. Arrange
         CalculationParameter param = CalculationParameter.builder()
                 .serviceId("SVC_WL_005") // "WL"
+                .domainType(DomainType.WIRELESS)
                 .isHotbill(false)
                 .build();
 
@@ -75,6 +77,7 @@ class CalculationServiceImplTest {
         // 1. Arrange
         CalculationParameter param = CalculationParameter.builder()
                 .serviceId("SVC_WD_002") // "WD"
+                .domainType(DomainType.WIRED)
                 .isHotbill(false)
                 .build();
 

@@ -56,8 +56,8 @@ public class RegularBillingJobConfigTest {
         assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
 
         jobExecution.getStepExecutions().forEach(stepExecution -> {
-            assertEquals(3, stepExecution.getReadCount());
-            assertEquals(3, stepExecution.getWriteCount());
+            assertEquals(4, stepExecution.getReadCount());
+            assertEquals(4, stepExecution.getWriteCount());
         });
     }
 }

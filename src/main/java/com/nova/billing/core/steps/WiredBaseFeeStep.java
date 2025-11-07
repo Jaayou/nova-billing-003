@@ -28,7 +28,7 @@ public class WiredBaseFeeStep implements CalculationStep {
             return;
         }
 
-        System.out.println("\n    [Step] -> 01. Executing 'WiredBaseFeeStep' (Looping Engine)...");
+        System.out.println("    [Step] -> 01. Executing 'WiredBaseFeeStep' (Looping Engine)...");
 
         BillingSubject subject = context.getSubject();
 
