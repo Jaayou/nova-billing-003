@@ -7,6 +7,7 @@ Content-Type: application/json
 {
     "serviceId": "SVC_WL_001",
     "domainType": "WIRELESS",
+    "operationType": "REGULAR",
     "isHotbill": "true"
 }
 

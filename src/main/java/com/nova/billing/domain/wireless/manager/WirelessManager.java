@@ -1,4 +1,4 @@
-package com.nova.billing.domain.wired;
+package com.nova.billing.domain.wireless.manager;
 
 import java.util.List;
 
@@ -14,18 +14,18 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class WiredManager implements DomainBillingManager {
+public class WirelessManager implements DomainBillingManager {
 
-    private final WiredPipelineLocator pipelineLocator;
+    private final WirelessPipelineLocator pipelineLocator;
 
     @Override
     public DomainType getDomainType() {
-        return DomainType.WIRED;
+        return DomainType.WIRELESS;
     }
 
     @Override
     public void execute(BillingContext context) {
-        System.out.println("  [Manager] === 'Wired' Domain Manager Executing ===");
+        System.out.println("  [Manager] === 'Wireless' Domain Manager Executing ===");
 
         CalculationPipeline pipeline = pipelineLocator.getPipeline(context);
         System.out.println("    [Manager] -> Found Pipeline: " + pipeline.getClass().getSimpleName());
@@ -35,6 +35,7 @@ public class WiredManager implements DomainBillingManager {
         System.out.println("    [Manager] -> Executing " + steps.size() + " Steps in order...");
         for (CalculationStep step : steps) {
             step.execute(context);
+            System.out.println("    [Step Name] : " + step.getClass().getSimpleName());
         }
         System.out.println("    [Manager] === Pipeline Execution Complete ===");
     }

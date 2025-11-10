@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.nova.billing.core.CalculationService;
-import com.nova.billing.domain.Bill;
-import com.nova.billing.domain.CalculationParameter;
-import com.nova.billing.domain.DomainType;
+import com.nova.billing.core.model.Bill;
+import com.nova.billing.core.model.CalculationParameter;
+import com.nova.billing.core.model.DomainType;
+import com.nova.billing.core.service.CalculationService;
 
 import lombok.RequiredArgsConstructor;
 

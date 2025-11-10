@@ -1,4 +1,4 @@
-package com.nova.billing.domain.wired;
+package com.nova.billing.domain.wireless.manager;
 
 import java.util.List;
 
@@ -11,18 +11,22 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class WiredPipelineLocator {
+public class WirelessPipelineLocator {
 
     private final List<CalculationPipeline> allPipelines;
 
     public CalculationPipeline getPipeline(BillingContext context) {
+        System.out.println("    [Locator] Finding 'Wireless' pipeline...");
 
-        System.out.println("    [Locator] Finding 'Wired' pipeline...");
+        System.out.println("    [Locator] Available Pipelines:");
+        allPipelines.forEach(pipeline -> 
+            System.out.println("      - " + pipeline.getClass().getSimpleName())
+        );
 
         return allPipelines.stream()
                 .filter(pipeline -> pipeline.supports(context))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
-                        "Unsupported 'Wired' pipeline for: " + context.getParam()));
+                        "Unsupported 'Wireless' pipeline for: " + context.getParam()));
     }
 }

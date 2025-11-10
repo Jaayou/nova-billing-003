@@ -1,6 +1,6 @@
 package com.nova.billing.api;
 
-import com.nova.billing.domain.DomainType;
+import com.nova.billing.core.model.DomainType;
 
 import lombok.Data;
 
@@ -15,5 +15,5 @@ public class HotbillRequest {
     private String calculationStartDate; //계산시작일
     private String calculationEndDate; //계산종료일
     private String invoiceDate; //청구일자
-    
+
 }

@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.nova.billing.domain.Bill;
-import com.nova.billing.domain.CalculationParameter;
-import com.nova.billing.domain.ChargeItem;
-import com.nova.billing.domain.DomainType;
+import com.nova.billing.core.model.Bill;
+import com.nova.billing.core.model.CalculationParameter;
+import com.nova.billing.core.model.ChargeItem;
+import com.nova.billing.core.model.DomainType;
+import com.nova.billing.core.service.CalculationService;
 
 @SpringBootTest
 class CalculationServiceImplTest {
