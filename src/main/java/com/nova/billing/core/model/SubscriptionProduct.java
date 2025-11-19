@@ -1,5 +1,6 @@
 package com.nova.billing.core.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
@@ -17,4 +18,5 @@ public class SubscriptionProduct {
     private String productType;
     private LocalDate startDate;
     private LocalDate endDate;
+    private BigDecimal monthlyRate;    
 }

@@ -1,5 +1,6 @@
 package com.nova.billing.domain.wireless.preparation;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
@@ -23,24 +24,27 @@ public class WirelessDataPreparer implements DataPreparer {
         System.out.println("  [WirelessDataPreparer] Fetching & flattening contract data for: " + param.getServiceId());
 
         BillingSubject subject = new BillingSubject();
-        subject.setCustomerId(1001L);
+        //subject.setCustomerId(1001L);
+
 
         // Plan
         subject.addProduct(SubscriptionProduct.builder()
                 .productId("WL_STANDARD_PLAN")
-                .productName("LTE 표준요금제")
+                .productName("LTE Standard Price Plan")
                 .productType("PLAN")
                 .startDate(LocalDate.of(2025, 10, 1))
                 .endDate(LocalDate.of(9999, 12, 31))
+                .monthlyRate(BigDecimal.valueOf(90000))
                 .build());
-
-        // Additional Products
-        subject.addProduct(SubscriptionProduct.builder()
+                
+                // Additional Products
+                subject.addProduct(SubscriptionProduct.builder()
                 .productId("WL_ADD_ON_001")
-                .productName("V컬러링")
+                .productName("V Coloring")
                 .productType("ADD_ON")
                 .startDate(LocalDate.of(2025, 11, 1))
                 .endDate(LocalDate.of(9999, 12, 31))
+                .monthlyRate(BigDecimal.valueOf(9000))
                 .build());
 
         System.out.println("  [WirelessDataPreparer] Data prepared with " + subject.getProducts().size() + " products.");

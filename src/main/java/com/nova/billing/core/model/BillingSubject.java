@@ -12,8 +12,8 @@ import lombok.ToString;
 @ToString
 public class BillingSubject {
 
-    private Long customerId;
-    
+    //private Long customerId;
+
     private List<SubscriptionProduct> products = new ArrayList<>();
 
     //계약(상품가입)정보

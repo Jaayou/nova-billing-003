@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.nova.billing.core.model.BillingContext;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
+@Profile("v018")
 public class WirelessMonthlyFeeStep implements CalculationStep {
 
     private final List<WirelessMonthlyFeeCalculator> allCalculators;

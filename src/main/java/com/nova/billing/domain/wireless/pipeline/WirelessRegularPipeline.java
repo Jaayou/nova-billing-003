@@ -21,7 +21,7 @@ import com.nova.billing.domain.wireless.steps.PenaltyStep;
 import com.nova.billing.domain.wireless.steps.ReceivableStep;
 import com.nova.billing.domain.wireless.steps.RevenueDistributionStep;
 import com.nova.billing.domain.wireless.steps.UsageFeeStep;
-import com.nova.billing.domain.wireless.steps.WirelessMonthlyFeeStep;
+import com.nova.billing.domain.wireless.steps.WirelessMonthlyFeeStepV020;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class WirelessRegularPipeline implements CalculationPipeline {
     private final List<CalculationStep> steps = new ArrayList<>();
     
     //private final WirelessBaseFeeStep wirelessBaseFeeStep;
-    private final WirelessMonthlyFeeStep monthlyFeeStep;
+    private final WirelessMonthlyFeeStepV020 monthlyFeeStep;
     private final UsageFeeStep usageFeeStep;
     private final OneTimeFeeStep oneTimeFeeStep;
     private final DiscountStep discountStep;

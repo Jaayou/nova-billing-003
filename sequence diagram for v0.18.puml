@@ -1,0 +1,45 @@
+@startuml
+title 요금계산 v0.18 실행 시퀀스 다이어그램 (WIRELESS 기준)
+
+actor Client as C
+participant CalculationService as CS
+participant WirelessManager as WM
+participant WirelessPipeline as WP
+box "Domain: Wireless" #LightBlue
+  participant MonthlyFeeStep as S1 #LightBlue
+  participant WirelessLateFeeStep as S3 #LightPink
+end box
+participant VatStep as S2 #LightGreen
+participant StandardPlanCalculator as CALC
+participant Bill as B
+
+C -> CS : calculate(param: Context)
+
+== 데이터 준비 (Preparation) ==
+CS -> DataPreparer : prepareData(param)
+note over DataPreparer : DB/API 조회 및 상품 목록(Products) 평탄화
+
+== Step 실행 (Pipeline Execution) ==
+CS -> WM : execute(context)
+WM -> WP : getPipeline() // WirelessRegularPipeline 선택
+
+=== 1. Step 1 (유형 1): 기본료/상품 계산 (MonthlyFee) ===
+WM -> S1 : execute(context)
+S1 -> S1 : findCalculator(ProductID) : O(1) Registry Lookup
+S1 -> CALC : calculate(context, product)
+CALC -> B : addCharge(기본료)
+
+=== 2. Step 2 (유형 3): 공통 로직 (Vat Delegation) ===
+WM -> S2 : execute(context)
+S2 -> VatCalculatorImpl : calculateVat(bill)
+VatCalculatorImpl -> B : addCharge(VAT)
+
+=== 3. Step 3 (유형 2): 도메인 격리 로직 (LateFee) ===
+WM -> S3 : execute(context)
+S3 -> S3 : applyLateFeeLogic(context) // 자체 로직 실행
+S3 -> B : addCharge(가산금)
+
+WM --> CS : return
+CS --> C : return Final Bill
+
+@enduml

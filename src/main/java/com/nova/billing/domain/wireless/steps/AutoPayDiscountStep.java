@@ -19,6 +19,6 @@ public class AutoPayDiscountStep implements CalculationStep {
 
         System.out.println("    [Step] -> 07. AutoPayDiscountFeeStep Executed");
 
-        bill.addCharge("Late Fee", AUTOPAY_DISCOUNT);
+        bill.addCharge("Autopay Discount", AUTOPAY_DISCOUNT);
     }
 }

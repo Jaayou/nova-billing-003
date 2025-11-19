@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class BillingContext {
 
+    //private Customer customer;
     private final CalculationParameter param;
     private final Bill bill;
     private final BillingSubject subject;

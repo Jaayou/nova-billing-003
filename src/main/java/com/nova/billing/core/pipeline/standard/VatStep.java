@@ -11,7 +11,7 @@ import com.nova.billing.core.pipeline.CalculationStep;
 @Component
 public class VatStep implements CalculationStep {
 
-    private static final BigDecimal VAT_FEE = new BigDecimal("-5000");
+    private static final BigDecimal VAT_FEE = new BigDecimal("5000");
 
     @Override
     public void execute(BillingContext context) {

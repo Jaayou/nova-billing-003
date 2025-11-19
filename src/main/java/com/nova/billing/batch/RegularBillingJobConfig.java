@@ -1,5 +1,6 @@
 package com.nova.billing.batch;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.batch.core.Job;
@@ -17,6 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.nova.billing.core.model.Bill;
 import com.nova.billing.core.model.CalculationParameter;
+import com.nova.billing.core.model.Customer;
 import com.nova.billing.core.model.DomainType;
 import com.nova.billing.core.service.CalculationService;
 
@@ -56,27 +58,39 @@ public class RegularBillingJobConfig {
 
         List<CalculationParameter> targetList = List.of(
                 CalculationParameter.builder()
+                        .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WL_001")
                         .domainType(DomainType.WIRELESS)
                         .operationType("REGULAR")
                         .isHotbill(false)
+                        .calculationStartDate(LocalDate.of(2025, 10, 1))
+                        .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                CalculationParameter.builder()
+                        CalculationParameter.builder()
+                        .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WD_002")
                         .domainType(DomainType.WIRED)
                         .isHotbill(false)
+                        .calculationStartDate(LocalDate.of(2025, 10, 1))
+                        .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                CalculationParameter.builder()
+                        CalculationParameter.builder()
+                        .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WL_005")
                         .domainType(DomainType.WIRELESS)
                         .operationType("REGULAR")
                         .isHotbill(false)
+                        .calculationStartDate(LocalDate.of(2025, 10, 1))
+                        .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                CalculationParameter.builder()
+                        CalculationParameter.builder()
+                        .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_BS_006")
                         .domainType(DomainType.WIRELESS)
                         .operationType("BILL_SHOCK")
                         .isHotbill(false)
+                        .calculationStartDate(LocalDate.of(2025, 10, 1))
+                        .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build());
 
         return new ListItemReader<>(targetList);

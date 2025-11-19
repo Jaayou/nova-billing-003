@@ -18,7 +18,7 @@ public class WirelessStandardPlanCalculator implements WirelessMonthlyFeeCalcula
     @Override
     public void calculate(BillingContext context, SubscriptionProduct targetProduct) {
         BigDecimal fee = BigDecimal.valueOf(80000);
-        String desc = "표준요금제 기본료 (" + targetProduct.getProductName() + ")";
+        String desc = "Standard Plan Fee (" + targetProduct.getProductName() + ")";
         
         context.getBill().addCharge(desc, fee);
         System.out.println("      [Calculator] -> Executing 'WirelessStandardPlanCalculator' (+80,000)");

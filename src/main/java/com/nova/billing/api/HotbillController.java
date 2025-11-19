@@ -1,5 +1,7 @@
 package com.nova.billing.api;
 
+import java.time.LocalDate;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +30,8 @@ public class HotbillController {
                 .domainType(request.getDomainType())
                 .operationType(request.getOperationType())
                 .isHotbill(request.isHotbill())
-                .calculationStartDate(request.getCalculationStartDate())
-                .calculationEndDate(request.getCalculationEndDate())
+                .calculationStartDate(LocalDate.parse(request.getCalculationStartDate()))
+                .calculationEndDate(LocalDate.parse(request.getCalculationEndDate()))
                 .invoiceDate(request.getInvoiceDate())
                 .build();
     
