@@ -16,7 +16,7 @@ public class ContractDiscountCalculator implements DiscountCalculator {
     @Override
     public boolean supports(BillingContext context) {
         CalculationParameter param = context.getParam();
-        return param.getDomainType() == DomainType.WIRELESS;
+        return param.domainType() == DomainType.WIRELESS;
     }
 
     @Override

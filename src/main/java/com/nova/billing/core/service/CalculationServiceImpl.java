@@ -25,10 +25,10 @@ public class CalculationServiceImpl implements CalculationService {
     public Bill calculate(CalculationParameter param) {
 
         System.out.println("\n[ServiceImpl] === v0.18 ===");
-        System.out.println("\n[ServiceImpl] === Calculation Start: " + param.getServiceId() + " ===");
+        System.out.println("\n[ServiceImpl] === Calculation Start: " + param.serviceId() + " ===");
 
         Bill bill = Bill.builder()
-                .serviceId(param.getServiceId())
+                .serviceId(param.serviceId())
                 .message("Calculation processing...")
                 .build();
 
@@ -36,7 +36,7 @@ public class CalculationServiceImpl implements CalculationService {
             System.out.println("  [ServiceImpl] -> (1) Calling DataPreparerFactory...");
 
             // Prepare Data
-            DomainType domain = param.getDomainType();
+            DomainType domain = param.domainType();
             DataPreparer preparer = dataPreparerFactory.findDataPreparer(domain);
             BillingSubject subject = preparer.prepareData(param);
 

@@ -20,7 +20,7 @@ public class WiredRegularPipeline implements CalculationPipeline {
 
     @Override
     public boolean supports(BillingContext context) {
-        return context.getParam().getDomainType() == DomainType.WIRED
+        return context.getParam().domainType() == DomainType.WIRED
                 && !context.getParam().isHotbill();
     }
 

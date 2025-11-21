@@ -17,8 +17,7 @@ public class WirelessLitePlanCalculator implements BaseFeeCalculator {
     @Override
     public boolean supports(BillingContext context) {
         CalculationParameter param = context.getParam();
-        return param.getDomainType() == DomainType.WIRELESS &&
-                param.getProductType().equals("WL_LITE_PLAN");
+        return param.domainType() == DomainType.WIRELESS;
     }
 
     @Override

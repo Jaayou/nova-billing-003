@@ -20,8 +20,8 @@ public class WirelessBillShockPipeline implements CalculationPipeline {
 
     @Override
     public boolean supports(BillingContext context) {
-        return context.getParam().getDomainType() == DomainType.WIRELESS
-                && context.getParam().getOperationType().equals("BILL_SHOCK");
+        return context.getParam().domainType() == DomainType.WIRELESS
+                && context.getParam().operationType().equals("BILL_SHOCK");
     }
 
     @Override

@@ -17,8 +17,7 @@ public class WiredBaseFeeCalculator implements BaseFeeCalculator {
     @Override
     public boolean supports(BillingContext context) {
         CalculationParameter param = context.getParam();
-        return param.getDomainType() == DomainType.WIRED &&
-                param.getProductType().equals("WD_STANDARD_PLAN");
+        return param.domainType() == DomainType.WIRED;
     }
 
     @Override

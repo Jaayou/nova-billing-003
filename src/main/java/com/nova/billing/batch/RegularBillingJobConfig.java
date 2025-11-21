@@ -58,7 +58,7 @@ public class RegularBillingJobConfig {
 
         List<CalculationParameter> targetList = List.of(
                 CalculationParameter.builder()
-                        .customer(Customer.builder().grade("VIP").build())
+                        // .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WL_001")
                         .domainType(DomainType.WIRELESS)
                         .operationType("REGULAR")
@@ -66,16 +66,16 @@ public class RegularBillingJobConfig {
                         .calculationStartDate(LocalDate.of(2025, 10, 1))
                         .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                        CalculationParameter.builder()
-                        .customer(Customer.builder().grade("VIP").build())
+                CalculationParameter.builder()
+                        // .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WD_002")
                         .domainType(DomainType.WIRED)
                         .isHotbill(false)
                         .calculationStartDate(LocalDate.of(2025, 10, 1))
                         .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                        CalculationParameter.builder()
-                        .customer(Customer.builder().grade("VIP").build())
+                CalculationParameter.builder()
+                        // .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_WL_005")
                         .domainType(DomainType.WIRELESS)
                         .operationType("REGULAR")
@@ -83,8 +83,8 @@ public class RegularBillingJobConfig {
                         .calculationStartDate(LocalDate.of(2025, 10, 1))
                         .calculationEndDate(LocalDate.of(2025, 10, 31))
                         .build(),
-                        CalculationParameter.builder()
-                        .customer(Customer.builder().grade("VIP").build())
+                CalculationParameter.builder()
+                        // .customer(Customer.builder().grade("VIP").build())
                         .serviceId("SVC_BS_006")
                         .domainType(DomainType.WIRELESS)
                         .operationType("BILL_SHOCK")
@@ -99,7 +99,7 @@ public class RegularBillingJobConfig {
     @Bean
     public ItemProcessor<CalculationParameter, Bill> billingItemProcessor() {
         return param -> {
-            System.out.println("\n[Batch Processor] Calling Engine for Rep ID: " + param.getServiceId());
+            System.out.println("\n[Batch Processor] Calling Engine for Rep ID: " + param.serviceId());
 
             Bill calculatedBill = calculationService.calculate(param);
 

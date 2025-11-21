@@ -22,7 +22,7 @@ public class WiredBaseFeeStep implements CalculationStep {
     @Override
     public void execute(BillingContext context) {
 
-        if (context.getParam().getDomainType() != DomainType.WIRED) {
+        if (context.getParam().domainType() != DomainType.WIRED) {
             return;
         }
 

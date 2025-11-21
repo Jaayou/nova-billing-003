@@ -21,6 +21,11 @@ public class Bill {
     @Builder.Default
     private List<ChargeItem> chargeItems = new ArrayList<>();
 
+    public void addCharge(ChargeItem item) {
+        if (item != null && item.amount().compareTo(BigDecimal.ZERO) != 0) {
+            this.chargeItems.add(item);
+        }
+    }
     public void addCharge(String chargeName, BigDecimal chargeAmount) {
         if (chargeAmount != null && chargeAmount.compareTo(BigDecimal.ZERO) != 0) {
             this.chargeItems.add(new ChargeItem(chargeName, chargeAmount));
@@ -35,7 +40,7 @@ public class Bill {
 
     public BigDecimal getTotalAmount() {
         return chargeItems.stream()
-                .map(ChargeItem::getAmount)
+                .map(ChargeItem::amount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

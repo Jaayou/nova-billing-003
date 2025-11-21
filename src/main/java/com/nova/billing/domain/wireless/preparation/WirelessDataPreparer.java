@@ -21,7 +21,7 @@ public class WirelessDataPreparer implements DataPreparer {
 
     @Override
     public BillingSubject prepareData(CalculationParameter param) {
-        System.out.println("  [WirelessDataPreparer] Fetching & flattening contract data for: " + param.getServiceId());
+        System.out.println("  [WirelessDataPreparer] Fetching & flattening contract data for: " + param.serviceId());
 
         BillingSubject subject = new BillingSubject();
         //subject.setCustomerId(1001L);

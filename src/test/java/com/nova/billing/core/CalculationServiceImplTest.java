@@ -33,7 +33,7 @@ class CalculationServiceImplTest {
         } else {
             for (ChargeItem item : bill.getChargeItems()) {
                 sb.append(String.format("    - %s: %,.0f\n",
-                        item.getItemName(), item.getAmount()));
+                        item.itemName(), item.amount()));
             }
         }
         sb.append("  ------------------\n");
@@ -67,7 +67,7 @@ class CalculationServiceImplTest {
 
         // assertEquals("Wireless Base Fee",
         // result.getChargeItems().get(0).getItemName());
-        assertEquals("Wireless Base Fee (Lite)", result.getChargeItems().get(0).getItemName());
+        assertEquals("Wireless Base Fee (Lite)", result.getChargeItems().get(0).itemName());
 
         assertEquals(0, result.getTotalAmount().compareTo(new BigDecimal("67000")));
     }
@@ -93,7 +93,7 @@ class CalculationServiceImplTest {
         assertNotNull(result);
         assertEquals(1, result.getChargeItems().size());
 
-        assertEquals("Wired Base Fee", result.getChargeItems().get(0).getItemName());
+        assertEquals("Wired Base Fee", result.getChargeItems().get(0).itemName());
 
         assertEquals(0, result.getTotalAmount().compareTo(new BigDecimal("45000")));
     }
