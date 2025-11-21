@@ -18,12 +18,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.nova.billing.core.model.Bill;
 import com.nova.billing.core.model.CalculationParameter;
-import com.nova.billing.core.model.Customer;
 import com.nova.billing.core.model.DomainType;
 import com.nova.billing.core.service.CalculationService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class RegularBillingJobConfig {
@@ -54,7 +55,7 @@ public class RegularBillingJobConfig {
 
     @Bean
     public ItemReader<CalculationParameter> billingItemReader() {
-        System.out.println("\n[Batch Reader] Creating mock data list...");
+        log.info("\n[Batch Reader] Creating mock data list...");
 
         List<CalculationParameter> targetList = List.of(
                 CalculationParameter.builder()
@@ -99,7 +100,7 @@ public class RegularBillingJobConfig {
     @Bean
     public ItemProcessor<CalculationParameter, Bill> billingItemProcessor() {
         return param -> {
-            System.out.println("\n[Batch Processor] Calling Engine for Rep ID: " + param.serviceId());
+            log.info("\n[Batch Processor] Calling Engine for Rep ID: " + param.serviceId());
 
             Bill calculatedBill = calculationService.calculate(param);
 
@@ -110,10 +111,10 @@ public class RegularBillingJobConfig {
     @Bean
     public ItemWriter<Bill> billingItemWriter() {
         return chunk -> {
-            System.out.println("  [Batch Writer] Writing " + chunk.getItems().size() + " Bills (Transaction Commit)");
+            log.info("  [Batch Writer] Writing " + chunk.getItems().size() + " Bills (Transaction Commit)");
 
             for (Bill bill : chunk.getItems()) {
-                System.out.println("    [Batch Writer] -> Rep ID: " + bill.getServiceId()
+                log.info("    [Batch Writer] -> Rep ID: " + bill.getServiceId()
                         + ", Final Amount: " + bill.getTotalAmount());
             }
         };

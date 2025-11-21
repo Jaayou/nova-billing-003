@@ -9,6 +9,9 @@ import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.model.CalculationParameter;
 import com.nova.billing.core.model.DomainType;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WirelessLitePlanCalculator implements BaseFeeCalculator {
 
@@ -24,7 +27,7 @@ public class WirelessLitePlanCalculator implements BaseFeeCalculator {
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("      [Calculator] -> Executing 'WirelessLitePlanCalculator' (+55,000)");
+        log.info("      [Calculator] -> Executing 'WirelessLitePlanCalculator' (+55,000)");
 
         bill.addCharge("Wireless Base Fee (Lite)", BASE_FEE);
     }

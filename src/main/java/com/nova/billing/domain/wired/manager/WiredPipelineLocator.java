@@ -8,7 +8,9 @@ import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.pipeline.CalculationPipeline;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class WiredPipelineLocator {
@@ -17,7 +19,7 @@ public class WiredPipelineLocator {
 
     public CalculationPipeline getPipeline(BillingContext context) {
 
-        System.out.println("    [Locator] Finding 'Wired' pipeline...");
+        log.info("    [Locator] Finding 'Wired' pipeline...");
 
         return allPipelines.stream()
                 .filter(pipeline -> pipeline.supports(context))

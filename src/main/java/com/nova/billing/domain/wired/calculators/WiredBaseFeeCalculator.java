@@ -10,6 +10,9 @@ import com.nova.billing.core.model.CalculationParameter;
 import com.nova.billing.core.model.DomainType;
 import com.nova.billing.domain.wireless.calculators.monthly.BaseFeeCalculator;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WiredBaseFeeCalculator implements BaseFeeCalculator {
     private static final BigDecimal BASE_FEE = new BigDecimal("45000");
@@ -23,7 +26,7 @@ public class WiredBaseFeeCalculator implements BaseFeeCalculator {
     @Override
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
-        System.out.println("      [Calculator] -> Executing 'WiredStandardPlanCalculator' (+45,000)");
+        log.info("      [Calculator] -> Executing 'WiredStandardPlanCalculator' (+45,000)");
         bill.addCharge("Wired Base Fee", BASE_FEE);
     }
 }

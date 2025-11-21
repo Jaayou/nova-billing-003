@@ -11,6 +11,9 @@ import com.nova.billing.core.model.DomainType;
 import com.nova.billing.core.model.SubscriptionProduct;
 import com.nova.billing.core.spi.DataPreparer;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WirelessDataPreparer implements DataPreparer {
 
@@ -21,7 +24,7 @@ public class WirelessDataPreparer implements DataPreparer {
 
     @Override
     public BillingSubject prepareData(CalculationParameter param) {
-        System.out.println("  [WirelessDataPreparer] Fetching & flattening contract data for: " + param.serviceId());
+        log.info("  [WirelessDataPreparer] Fetching & flattening contract data for: " + param.serviceId());
 
         BillingSubject subject = new BillingSubject();
         //subject.setCustomerId(1001L);
@@ -47,10 +50,10 @@ public class WirelessDataPreparer implements DataPreparer {
                 .monthlyRate(BigDecimal.valueOf(9000))
                 .build());
 
-        System.out.println("  [WirelessDataPreparer] Data prepared with " + subject.getProducts().size() + " products.");
+        log.info("  [WirelessDataPreparer] Data prepared with " + subject.getProducts().size() + " products.");
 
         subject.getProducts().forEach(prod -> 
-            System.out.println("    [###Product] ID: " + prod.getProductId() + ", Name: " + prod.getProductName() + ", Type: " + prod.getProductType())
+            log.info("    [###Product] ID: " + prod.getProductId() + ", Name: " + prod.getProductName() + ", Type: " + prod.getProductType())
         );
 
         return subject;

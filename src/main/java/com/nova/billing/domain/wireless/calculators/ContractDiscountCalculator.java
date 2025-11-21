@@ -9,6 +9,9 @@ import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.model.CalculationParameter;
 import com.nova.billing.core.model.DomainType;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class ContractDiscountCalculator implements DiscountCalculator {
     private static final BigDecimal DISCOUNT_AMOUNT = new BigDecimal("-10000");
@@ -22,7 +25,7 @@ public class ContractDiscountCalculator implements DiscountCalculator {
     @Override
     public void apply(BillingContext context) {
         Bill bill = context.getBill();
-        System.out.println("      [Calculator] -> Executing 'ContractDiscountCalculator' (-10,000)");
+        log.info("      [Calculator] -> Executing 'ContractDiscountCalculator' (-10,000)");
         bill.addCharge("Wireless Contract Discount", DISCOUNT_AMOUNT);
     }
 }

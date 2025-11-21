@@ -11,7 +11,9 @@ import com.nova.billing.core.model.DomainType;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DataPreparerFactory {
@@ -21,16 +23,16 @@ public class DataPreparerFactory {
 
     @PostConstruct
     public void initialize() {
-        System.out.println("[PreparerFactory] Initializing DataPreparer Map...");
+        log.info("[PreparerFactory] Initializing DataPreparer Map...");
 
         preparers.forEach(preparer -> {
-            System.out.println("  [PreparerFactory] -> Registered Preparer: " + preparer.getDomainType() + " with Class: " + preparer.getClass().getSimpleName());
+            log.info("  [PreparerFactory] -> Registered Preparer: " + preparer.getDomainType() + " with Class: " + preparer.getClass().getSimpleName());
             preparerMap.put(preparer.getDomainType(), preparer);
         });
     }
 
     public DataPreparer findDataPreparer(DomainType domain) {
-        System.out.println("  [PreparerFactory] -> Finding Preparer for: " + domain);
+        log.info("  [PreparerFactory] -> Finding Preparer for: " + domain);
 
         return Optional.ofNullable(preparerMap.get(domain))
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported Domain for DataPreparer: " + domain));

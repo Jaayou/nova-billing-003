@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.nova.billing.core.model.BillingContext;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WirelessAddOnCalculator implements WirelessMonthlyFeeCalculator {
 
@@ -14,7 +17,7 @@ public class WirelessAddOnCalculator implements WirelessMonthlyFeeCalculator {
 
     @Override
     public void calculate(BillingContext context, com.nova.billing.core.model.SubscriptionProduct targetProduct) {
-        System.out.println("      [Calculator] -> Executing 'WirelessAddOnCalculator' (+10,000)");
+        log.info("      [Calculator] -> Executing 'WirelessAddOnCalculator' (+10,000)");
         context.getBill().addCharge("Addon Fee (" + targetProduct.getProductName() + ")", java.math.BigDecimal.valueOf(10000));
     }
 

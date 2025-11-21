@@ -12,7 +12,9 @@ import com.nova.billing.core.pipeline.CalculationStep;
 import com.nova.billing.domain.wireless.calculators.monthly.BaseFeeCalculator;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class WiredBaseFeeStep implements CalculationStep {
@@ -26,7 +28,7 @@ public class WiredBaseFeeStep implements CalculationStep {
             return;
         }
 
-        System.out.println("    [Step] -> 01. Executing 'WiredBaseFeeStep' (Looping Engine)...");
+        log.info("    [Step] -> 01. Executing 'WiredBaseFeeStep' (Looping Engine)...");
         
     }
 

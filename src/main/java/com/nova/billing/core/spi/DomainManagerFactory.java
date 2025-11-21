@@ -11,7 +11,9 @@ import com.nova.billing.core.model.DomainType;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DomainManagerFactory {
@@ -22,9 +24,9 @@ public class DomainManagerFactory {
 
     @PostConstruct
     public void initializeManagerMap() {
-        System.out.println("\n[ManagerFactory] Initializing Manager Map...");
+        log.info("\n[ManagerFactory] Initializing Manager Map...");
         managers.forEach(m -> managerMap.put(m.getDomainType(), m));
-        System.out.println("[ManagerFactory] Initialization Complete. Total strategies: " + managerMap.size());
+        log.info("[ManagerFactory] Initialization Complete. Total strategies: " + managerMap.size());
     }
 
     public DomainBillingManager findManager(DomainType domainType) {

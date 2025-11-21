@@ -8,6 +8,9 @@ import com.nova.billing.core.model.Bill;
 import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.pipeline.CalculationStep;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class ReceivableStep implements CalculationStep {
     
@@ -17,7 +20,7 @@ public class ReceivableStep implements CalculationStep {
     public void execute(BillingContext context) {
         Bill bill = context.getBill();
 
-        System.out.println("    [Step] -> 10. ReceivableStep Executed");
+        log.info("    [Step] -> 10. ReceivableStep Executed");
 
         bill.addCharge("Receivable Fee", RECEIVABLE_FEE);
     }

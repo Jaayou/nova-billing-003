@@ -10,7 +10,6 @@ import com.nova.billing.core.model.Bill;
 import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.model.BillingSubject;
 import com.nova.billing.core.model.CalculationParameter;
-import com.nova.billing.core.model.DomainType;
 import com.nova.billing.core.spi.DataPreparer;
 import com.nova.billing.core.spi.DataPreparerFactory;
 import com.nova.billing.core.spi.DomainBillingManager;

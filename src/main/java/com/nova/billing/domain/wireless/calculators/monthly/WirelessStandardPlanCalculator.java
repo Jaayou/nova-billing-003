@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.model.SubscriptionProduct;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class WirelessStandardPlanCalculator implements WirelessMonthlyFeeCalculator {
 
@@ -21,6 +24,6 @@ public class WirelessStandardPlanCalculator implements WirelessMonthlyFeeCalcula
         String desc = "Standard Plan Fee (" + targetProduct.getProductName() + ")";
         
         context.getBill().addCharge(desc, fee);
-        System.out.println("      [Calculator] -> Executing 'WirelessStandardPlanCalculator' (+80,000)");
+        log.info("      [Calculator] -> Executing 'WirelessStandardPlanCalculator' (+80,000)");
     }
 }

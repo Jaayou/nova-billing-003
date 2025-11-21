@@ -8,7 +8,9 @@ import com.nova.billing.core.model.BillingContext;
 import com.nova.billing.core.pipeline.CalculationPipeline;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class WirelessPipelineLocator {
@@ -16,11 +18,11 @@ public class WirelessPipelineLocator {
     private final List<CalculationPipeline> allPipelines;
 
     public CalculationPipeline getPipeline(BillingContext context) {
-        System.out.println("    [Locator] Finding 'Wireless' pipeline...");
+        log.info("    [Locator] Finding 'Wireless' pipeline...");
 
-        System.out.println("    [Locator] Available Pipelines:");
+        log.info("    [Locator] Available Pipelines:");
         allPipelines.forEach(pipeline -> 
-            System.out.println("      - " + pipeline.getClass().getSimpleName())
+            log.info("      - " + pipeline.getClass().getSimpleName())
         );
 
         return allPipelines.stream()
