@@ -1,4 +1,4 @@
-package com.nova.billing.domain.wired;
+package com.nova.billing.domain.wired.manager;
 
 import java.util.List;
 

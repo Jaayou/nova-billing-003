@@ -1,4 +1,4 @@
-package com.nova.billing.domain.wired;
+package com.nova.billing.domain.wired.pipeline;
 
 import java.util.List;
 
