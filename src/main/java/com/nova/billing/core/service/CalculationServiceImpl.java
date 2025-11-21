@@ -48,9 +48,8 @@ public class CalculationServiceImpl implements CalculationService {
                 throw new BillingException(ErrorCode.NO_BILLING_TARGET, "ServiceId: " + param.serviceId());
             }
 
-            subject.getProducts().forEach(prod -> 
-                log.debug("    [###ServiceImpl] -> Prepared Product: ID: " + prod.getProductId() + ", Name: " + prod.getProductName() + ", Type: " + prod.getProductType())
-            );
+            subject.getProducts().forEach(prod -> log.debug("    [###ServiceImpl] -> Prepared Product: ID: "
+                    + prod.getProductId() + ", Name: " + prod.getProductName() + ", Type: " + prod.getProductType()));
 
             // Create BillingContext
             BillingContext context = new BillingContext(param, subject, bill);
